@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 26th Birthday BB! 🎂</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Fredoka & Plus Jakarta Sans for a fun, warm, modern feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti for celebratory moments -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Fredoka', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        skysoft: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 4s ease-in-out infinite',
+                        'float-delayed': 'float 5s ease-in-out 2s infinite',
+                        'pop-in': 'popIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'wiggle': 'wiggle 1.2s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-14px) rotate(4deg)' },
+                        },
+                        popIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.94) translateY(12px)' },
+                            '100%': { opacity: '1', transform: 'scale(1) translateY(0)' },
+                        },
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-4deg)' },
+                            '50%': { transform: 'rotate(4deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 45%, #dbeafe 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        /* Subtle playful dot pattern overlay */
+        .bg-dots {
+            background-image: radial-gradient(#38bdf8 1.25px, transparent 1.25px);
+            background-size: 28px 28px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow: 0 20px 50px -12px rgba(2, 132, 199, 0.18), 0 0 0 2px rgba(255, 255, 255, 0.8);
+        }
+        .btn-bounce {
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+        .btn-bounce:hover {
+            transform: translateY(-2px) scale(1.02);
+        }
+        .btn-bounce:active {
+            transform: translateY(1px) scale(0.98);
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-700 flex items-center justify-center p-4 sm:p-6 relative selection:bg-sky-200 selection:text-sky-900">
+
+    <!-- Ambient Decorative Background Layer -->
+    <div class="fixed inset-0 bg-dots opacity-35 pointer-events-none"></div>
+    <div class="fixed -top-24 -left-24 w-72 h-72 bg-sky-300/40 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="fixed -bottom-24 -right-24 w-80 h-80 bg-blue-300/40 rounded-full blur-3xl pointer-events-none"></div>
+
+    <!-- Floating Fun Emojis -->
+    <div class="fixed top-10 left-8 text-4xl sm:text-5xl opacity-70 animate-float pointer-events-none select-none hidden sm:block">🎈</div>
+    <div class="fixed top-20 right-10 text-4xl sm:text-5xl opacity-70 animate-float-delayed pointer-events-none select-none hidden sm:block">🎂</div>
+    <div class="fixed bottom-12 left-12 text-4xl opacity-70 animate-float-delayed pointer-events-none select-none hidden sm:block">🥂</div>
+    <div class="fixed bottom-16 right-12 text-4xl opacity-70 animate-float pointer-events-none select-none hidden sm:block">✨</div>
+
+    <!-- Main Interactive Card Container -->
+    <main class="w-full max-w-lg relative z-10">
+        <div id="card-container" class="glass-card rounded-3xl p-6 sm:p-10 text-center transition-all duration-300">
+            <!-- Dynamic View Content Rendered Here -->
+        </div>
+    </main>
+
+    <script>
+        // --- Menu Links Constants ---
+        const BANYAN_MENU_URL = "https://drive.google.com/file/d/1YWDN12iFuXWEJFq09STEJM1DiMuWeCcQ/view?fbclid=PAb21jcAVzHXdleHRuA2FlbQIxMQBwZG9mAnNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp8XkYvpBf4-ODbGuo8nASVmGlSWbahMoC-4vALb6bbKE3GY0vwbgsOea8g-d_aem_MsgZYh7vG7mT-3DHML-rqQ&utm_source=ig&utm_medium=social&utm_content=link_in_bio";
+        const ATELIER_MENU_URL = "https://drive.google.com/drive/folders/10IaO8051gXyK24zA_4487zH4Pr5XSAO1";
+        const RECIPIENT_EMAIL = "limchloe2000@gmail.com";
+
+        // --- Application State ---
+        const state = {
+            step: 'welcome', // 'welcome' | 'sad' | 'timing' | 'today_dinner' | 'saturday_brunch' | 'confirm' | 'confirmed'
+            selectedChoice: '',
+            selectedDetails: '',
+            emailStatus: 'idle' // 'idle' | 'sending' | 'sent' | 'fallback'
+        };
+
+        const cardContainer = document.getElementById('card-container');
+
+        // --- Confetti Helper ---
+        function fireConfetti(intensity = 'normal') {
+            if (typeof confetti !== 'function') return;
+            const colors = ['#38bdf8', '#0ea5e9', '#bae6fd', '#fde047', '#f472b6', '#ffffff'];
+            if (intensity === 'celebration') {
+                confetti({
+                    particleCount: 90,
+                    spread: 75,
+                    origin: { y: 0.6 },
+                    colors
+                });
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 55,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0 },
+                        colors
+                    });
+                    confetti({
+                        particleCount: 55,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1 },
+                        colors
+                    });
+                }, 250);
+            } else {
+                confetti({
+                    particleCount: 45,
+                    spread: 60,
+                    origin: { y: 0.65 },
+                    colors
+                });
+            }
+        }
+
+        // --- Navigation & State Actions ---
+        function goToStep(newStep) {
+            state.step = newStep;
+            render();
+        }
+
+        function resetToStart() {
+            state.selectedChoice = '';
+            state.selectedDetails = '';
+            state.emailStatus = 'idle';
+            goToStep('welcome');
+        }
+
+        function chooseTodayDinner() {
+            state.selectedChoice = "Today Dinner — Banyan Tree Kuala Lumpur (7.30pm)";
+            state.selectedDetails = "Banyan Tree Kuala Lumpur • Today, 7.30pm";
+            goToStep('today_dinner');
+        }
+
+        function chooseSaturdayOption(title, timeAndNote) {
+            state.selectedChoice = `Saturday Brunch/Lunch — ${title} (${timeAndNote})`;
+            state.selectedDetails = `${title} • Saturday, ${timeAndNote}`;
+            goToStep('confirm');
+        }
+
+        // --- Email Notification Handler ---
+        async function confirmAndSendEmail() {
+            state.emailStatus = 'sending';
+            goToStep('confirmed');
+            fireConfetti('celebration');
+
+            try {
+                const response = await fetch(`https://formsubmit.co/ajax/${RECIPIENT_EMAIL}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        _subject: "🎂 BB's 26th Birthday Makan Date Choice!",
+                        _template: "table",
+                        Birthday_Boy: "BB (26th Birthday)",
+                        Confirmed_Choice: state.selectedChoice,
+                        Message: `BB confirmed the birthday makan date choice: ${state.selectedChoice}`
+                    })
+                });
+
+                if (response.ok) {
+                    state.emailStatus = 'sent';
+                } else {
+                    state.emailStatus = 'fallback';
+                }
+            } catch (error) {
+                console.error("Background email dispatch encountered an issue:", error);
+                state.emailStatus = 'fallback';
+            }
+            // Re-render only the status pill if still on confirmed screen
+            if (state.step === 'confirmed') {
+                updateEmailBadge();
+            }
+        }
+
+        function updateEmailBadge() {
+            const badgeEl = document.getElementById('email-status-area');
+            if (!badgeEl) return;
+
+            const mailtoSubject = encodeURIComponent("BB's 26th Birthday Makan Date Choice!");
+            const mailtoBody = encodeURIComponent(`Hi! I've locked in my 26th birthday makan date choice:\n\n${state.selectedChoice}\n\nCan't wait for our date! See you there!`);
+            const mailtoHref = `mailto:${RECIPIENT_EMAIL}?subject=${mailtoSubject}&body=${mailtoBody}`;
+
+            if (state.emailStatus === 'sending') {
+                badgeEl.innerHTML = `
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-xs sm:text-sm font-medium">
+                        <span class="w-2.5 h-2.5 rounded-full bg-sky-500 animate-ping"></span>
+                        Sending choice to ${RECIPIENT_EMAIL}...
+                    </div>
+                `;
+            } else if (state.emailStatus === 'sent') {
+                badgeEl.innerHTML = `
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs sm:text-sm font-semibold">
+                            <span>✅</span> Choice sent to ${RECIPIENT_EMAIL}!
+                        </div>
+                        <a href="${mailtoHref}" class="text-xs text-sky-600 hover:text-sky-800 underline underline-offset-2 transition">
+                            Want to send a quick note via email app too? Click here
+                        </a>
+                    </div>
+                `;
+            } else {
+                badgeEl.innerHTML = `
+                    <div class="flex flex-col items-center gap-2">
+                        <p class="text-xs text-slate-500">Tap below to send your choice straight to Chloe's inbox:</p>
+                        <a href="${mailtoHref}" class="btn-bounce inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-sky-100 hover:bg-sky-200 text-sky-800 font-semibold text-sm border border-sky-300 shadow-sm">
+                            <span>💌</span> Email Choice to ${RECIPIENT_EMAIL}
+                        </a>
+                    </div>
+                `;
+            }
+        }
+
+        // --- Reusable "I changed my mind" Button Component ---
+        function renderChangedMindButton() {
+            return `
+                <div class="mt-6 pt-4 border-t border-sky-100">
+                    <button 
+                        onclick="resetToStart()" 
+                        class="inline-flex items-center gap-1.5 text-sm font-medium text-sky-600 hover:text-sky-800 bg-sky-50/80 hover:bg-sky-100 px-4 py-2 rounded-full transition-colors cursor-pointer"
+                    >
+                        <span>↩️</span> I changed my mind
+                    </button>
+                </div>
+            `;
+        }
+
+        // --- Main Render Function ---
+        function render() {
+            let html = '';
+
+            switch (state.step) {
+                // STEP 1: Initial Birthday Greeting & Makan Date Question
+                case 'welcome':
+                    html = `
+                        <div class="animate-pop-in">
+                            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-tr from-sky-200 to-blue-100 text-5xl mb-5 shadow-inner animate-wiggle select-none">
+                                🎂
+                            </div>
+                            <span class="inline-block px-3.5 py-1 rounded-full bg-sky-100 text-sky-700 font-semibold text-xs uppercase tracking-wider mb-3">
+                                Level 26 Unlocked ✨
+                            </span>
+                            <h1 class="font-display text-2xl sm:text-3xl font-bold text-sky-900 leading-tight mb-4">
+                                Happy birthday BB!, it is your 26th birthday!
+                            </h1>
+                            <div class="bg-sky-50/90 border border-sky-100 rounded-2xl p-4 sm:p-5 mb-7">
+                                <p class="text-base sm:text-lg font-semibold text-slate-700">
+                                    Would you like to have a birthday makan date with me? 🍽️💙
+                                </p>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 sm:gap-4">
+                                <button 
+                                    onclick="fireConfetti('normal'); goToStep('timing');" 
+                                    class="btn-bounce w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-500 hover:from-sky-600 hover:to-blue-600 text-white font-display font-semibold text-lg shadow-lg shadow-sky-300/50 cursor-pointer"
+                                >
+                                    Yes! 🎉
+                                </button>
+                                <button 
+                                    onclick="goToStep('sad')" 
+                                    class="btn-bounce w-full py-3.5 px-6 rounded-2xl bg-white hover:bg-slate-50 text-slate-600 border-2 border-sky-200 font-display font-semibold text-lg cursor-pointer"
+                                >
+                                    No
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                // STEP 1B: If "No" is clicked
+                case 'sad':
+                    html = `
+                        <div class="animate-pop-in py-4">
+                            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-sky-100 text-5xl mb-5 select-none">
+                                🥺
+                            </div>
+                            <h2 class="font-display text-3xl font-bold text-sky-900 mb-6">
+                                Okay then :(
+                            </h2>
+                            <button 
+                                onclick="resetToStart()" 
+                                class="btn-bounce inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-sky-100 hover:bg-sky-200 text-sky-800 font-semibold text-sm transition cursor-pointer"
+                            >
+                                <span>🔄</span> Wait, let me reconsider!
+                            </button>
+                        </div>
+                    `;
+                    break;
+
+                // STEP 2: Today Dinner or Saturday Brunch
+                case 'timing':
+                    html = `
+                        <div class="animate-pop-in">
+                            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-sky-100 text-4xl mb-4 select-none">
+                                📅
+                            </div>
+                            <h2 class="font-display text-2xl sm:text-3xl font-bold text-sky-900 mb-2">
+                                Yay! When works best for you?
+                            </h2>
+                            <p class="text-slate-500 text-sm sm:text-base mb-6">
+                                Pick your preferred birthday makan session:
+                            </p>
+                            <div class="space-y-3.5">
+                                <button 
+                                    onclick="chooseTodayDinner()" 
+                                    class="btn-bounce w-full p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-500 hover:from-sky-600 hover:to-blue-600 text-white text-left flex items-center justify-between shadow-lg shadow-sky-200/70 cursor-pointer group"
+                                >
+                                    <div class="flex items-center gap-3.5">
+                                        <span class="text-3xl bg-white/20 p-2.5 rounded-xl">🌙</span>
+                                        <div>
+                                            <div class="font-display font-bold text-lg sm:text-xl">Today Dinner</div>
+                                            <div class="text-sky-100 text-xs sm:text-sm">Tonight celebration ✨</div>
+                                        </div>
+                                    </div>
+                                    <span class="text-xl group-hover:translate-x-1 transition-transform">→</span>
+                                </button>
+
+                                <button 
+                                    onclick="goToStep('saturday_brunch')" 
+                                    class="btn-bounce w-full p-4 sm:p-5 rounded-2xl bg-white hover:bg-sky-50 text-sky-900 border-2 border-sky-200 hover:border-sky-400 text-left flex items-center justify-between shadow-sm cursor-pointer group"
+                                >
+                                    <div class="flex items-center gap-3.5">
+                                        <span class="text-3xl bg-sky-100 p-2.5 rounded-xl">☀️</span>
+                                        <div>
+                                            <div class="font-display font-bold text-lg sm:text-xl">Saturday Brunch</div>
+                                            <div class="text-slate-500 text-xs sm:text-sm">Weekend lunch date 🥐</div>
+                                        </div>
+                                    </div>
+                                    <span class="text-xl text-sky-500 group-hover:translate-x-1 transition-transform">→</span>
+                                </button>
+                            </div>
+                            ${renderChangedMindButton()}
+                        </div>
+                    `;
+                    break;
+
+                // STEP 3A: Today Dinner Details
+                case 'today_dinner':
+                    html = `
+                        <div class="animate-pop-in">
+                            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-sky-100 text-4xl mb-4 select-none">
+                                🥂
+                            </div>
+                            <span class="inline-block px-3 py-1 rounded-full bg-sky-100 text-sky-700 font-semibold text-xs mb-3">
+                                Tonight's Plan
+                            </span>
+                            <div class="bg-sky-50/90 border border-sky-200 rounded-2xl p-5 sm:p-6 mb-6 text-left sm:text-center">
+                                <p class="text-base sm:text-lg text-slate-800 leading-relaxed font-medium">
+                                    Great I will see you at <span class="font-bold text-sky-800">Banyan Tree Kuala Lumpur</span> today, <span class="font-bold text-sky-800">7.30pm</span>. Here is the 
+                                    <a 
+                                        href="${BANYAN_MENU_URL}" 
+                                        target="_blank" 
+                                        rel="noopener noreferrer" 
+                                        class="inline-flex items-center gap-1 font-bold text-sky-600 hover:text-sky-800 underline decoration-2 underline-offset-4 transition"
+                                    >menu link ↗</a>
+                                </p>
+                            </div>
+                            <button 
+                                onclick="goToStep('confirm')" 
+                                class="btn-bounce w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-500 hover:from-sky-600 hover:to-blue-600 text-white font-display font-semibold text-lg shadow-lg shadow-sky-300/50 cursor-pointer"
+                            >
+                                Lock This In →
+                            </button>
+                            ${renderChangedMindButton()}
+                        </div>
+                    `;
+                    break;
+
+                // STEP 3B: Saturday Brunch / Lunch Options
+                case 'saturday_brunch':
+                    html = `
+                        <div class="animate-pop-in">
+                            <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-sky-100 text-3xl mb-3 select-none">
+                                🍽️
+                            </div>
+                            <h2 class="font-display text-2xl font-bold text-sky-900 mb-1">
+                                Saturday Brunch / Lunch
+                            </h2>
+                            <p class="text-slate-500 text-sm mb-5">
+                                Pick your favorite spot below:
+                            </p>
+
+                            <div class="space-y-3 text-left">
+                                <!-- Option 1: Banyan Tree -->
+                                <div class="p-4 rounded-2xl bg-white border-2 border-sky-200 hover:border-sky-400 transition shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                    <div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="w-6 h-6 rounded-full bg-sky-100 text-sky-700 font-bold text-xs flex items-center justify-center">1</span>
+                                            <h3 class="font-display font-bold text-sky-950 text-base sm:text-lg">Banyan Tree</h3>
+                                        </div>
+                                        <div class="mt-1 pl-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-600">
+                                            <span>🕛 12pm</span>
+                                            <span>•</span>
+                                            <a 
+                                                href="${BANYAN_MENU_URL}" 
+                                                target="_blank" 
+                                                rel="noopener noreferrer"
+                                                onclick="event.stopPropagation()"
+                                                class="font-semibold text-sky-600 hover:text-sky-800 underline underline-offset-2 inline-flex items-center gap-0.5"
+                                            >
+                                                Menu link ↗
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <button 
+                                        onclick="chooseSaturdayOption('Banyan Tree', '12pm')" 
+                                        class="btn-bounce shrink-0 px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-semibold text-sm shadow-sm cursor-pointer self-end sm:self-center"
+                                    >
+                                        Choose
+                                    </button>
+                                </div>
+
+                                <!-- Option 2: Atelier Binchotan -->
+                                <div class="p-4 rounded-2xl bg-white border-2 border-sky-200 hover:border-sky-400 transition shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                    <div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="w-6 h-6 rounded-full bg-sky-100 text-sky-700 font-bold text-xs flex items-center justify-center">2</span>
+                                            <h3 class="font-display font-bold text-sky-950 text-base sm:text-lg">Atelier Binchotan</h3>
+                                        </div>
+                                        <div class="mt-1 pl-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-600">
+                                            <span>🕦 11.30am</span>
+                                            <span>•</span>
+                                            <a 
+                                                href="${ATELIER_MENU_URL}" 
+                                                target="_blank" 
+                                                rel="noopener noreferrer"
+                                                onclick="event.stopPropagation()"
+                                                class="font-semibold text-sky-600 hover:text-sky-800 underline underline-offset-2 inline-flex items-center gap-0.5"
+                                            >
+                                                Menu link ↗
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <button 
+                                        onclick="chooseSaturdayOption('Atelier Binchotan', '11.30am')" 
+                                        class="btn-bounce shrink-0 px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-semibold text-sm shadow-sm cursor-pointer self-end sm:self-center"
+                                    >
+                                        Choose
+                                    </button>
+                                </div>
+
+                                <!-- Option 3: Conrad, Majestic Hotel -->
+                                <div class="p-4 rounded-2xl bg-white border-2 border-sky-200 hover:border-sky-400 transition shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                    <div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="w-6 h-6 rounded-full bg-sky-100 text-sky-700 font-bold text-xs flex items-center justify-center">3</span>
+                                            <h3 class="font-display font-bold text-sky-950 text-base sm:text-lg">Conrad, Majestic Hotel</h3>
+                                        </div>
+                                        <div class="mt-1 pl-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-600">
+                                            <span>🕛 12pm</span>
+                                            <span>•</span>
+                                            <span class="font-medium text-sky-700 bg-sky-50 px-2 py-0.5 rounded-md">Buffet lunch</span>
+                                        </div>
+                                    </div>
+                                    <button 
+                                        onclick="chooseSaturdayOption('Conrad, Majestic Hotel', '12pm - Buffet lunch')" 
+                                        class="btn-bounce shrink-0 px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-semibold text-sm shadow-sm cursor-pointer self-end sm:self-center"
+                                    >
+                                        Choose
+                                    </button>
+                                </div>
+                            </div>
+
+                            ${renderChangedMindButton()}
+                        </div>
+                    `;
+                    break;
+
+                // STEP 4: Confirmation Screen
+                case 'confirm':
+                    html = `
+                        <div class="animate-pop-in">
+                            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-sky-100 text-4xl mb-4 select-none">
+                                💌
+                            </div>
+                            <p class="text-xs font-bold uppercase tracking-wider text-sky-600 mb-2">
+                                Your Selected Birthday Date
+                            </p>
+                            <div class="bg-sky-50 border-2 border-sky-200 rounded-2xl p-4 sm:p-5 mb-6">
+                                <p class="font-display font-bold text-lg sm:text-xl text-sky-950">
+                                    ${state.selectedDetails}
+                                </p>
+                            </div>
+                            <h2 class="font-display text-2xl sm:text-3xl font-bold text-sky-900 mb-6">
+                                Confirm?
+                            </h2>
+                            <div class="grid grid-cols-2 gap-3 sm:gap-4">
+                                <button 
+                                    onclick="confirmAndSendEmail()" 
+                                    class="btn-bounce w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-500 hover:from-sky-600 hover:to-blue-600 text-white font-display font-semibold text-lg shadow-lg shadow-sky-300/50 cursor-pointer"
+                                >
+                                    Yes! 💙
+                                </button>
+                                <button 
+                                    onclick="resetToStart()" 
+                                    class="btn-bounce w-full py-3.5 px-6 rounded-2xl bg-white hover:bg-slate-50 text-slate-600 border-2 border-sky-200 font-display font-semibold text-lg cursor-pointer"
+                                >
+                                    No
+                                </button>
+                            </div>
+                            ${renderChangedMindButton()}
+                        </div>
+                    `;
+                    break;
+
+                // STEP 5: Final Confirmed Celebration Screen
+                case 'confirmed':
+                    html = `
+                        <div class="animate-pop-in py-2">
+                            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-tr from-sky-200 to-blue-100 text-5xl mb-5 shadow-inner animate-bounce select-none">
+                                🥰
+                            </div>
+                            <h1 class="font-display text-2xl sm:text-3xl font-bold text-sky-900 leading-snug mb-4">
+                                Can't wait for our date! See you there
+                            </h1>
+                            <div class="bg-sky-50/90 border border-sky-200 rounded-2xl p-4 mb-6">
+                                <p class="text-xs uppercase tracking-wider font-semibold text-sky-600 mb-1">Locked In ✨</p>
+                                <p class="font-display font-bold text-base sm:text-lg text-sky-950">
+                                    ${state.selectedDetails}
+                                </p>
+                            </div>
+                            <div id="email-status-area" class="mb-4"></div>
+                            <button 
+                                onclick="fireConfetti('celebration')" 
+                                class="text-xs font-semibold text-sky-500 hover:text-sky-700 transition cursor-pointer mt-2"
+                            >
+                                🎊 Tap for more confetti!
+                            </button>
+                        </div>
+                    `;
+                    break;
+            }
+
+            cardContainer.innerHTML = html;
+
+            if (state.step === 'confirmed') {
+                updateEmailBadge();
+            }
+        }
+
+        // Initial Render & Gentle Entrance Confetti
+        window.addEventListener('DOMContentLoaded', () => {
+            render();
+            setTimeout(() => fireConfetti('normal'), 400);
+        });
+    </script>
+</body>
+</html>
